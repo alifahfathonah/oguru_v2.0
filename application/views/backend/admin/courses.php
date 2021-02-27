@@ -103,14 +103,16 @@
                     </div>
                 </div>
 
-                <!-- Course Status -->
+                <!-- Course Tipe -->
                 <div class="col-xl-2">
                     <div class="form-group">
-                        <label for="status"><?php echo get_phrase('status'); ?></label>
-                        <select class="form-control select2" data-toggle="select2" name="status" id = 'status'>
-                            <option value="all" <?php if($selected_status == 'all') echo 'selected'; ?>><?php echo get_phrase('all'); ?></option>
-                            <option value="active" <?php if($selected_status == 'active') echo 'selected'; ?>><?php echo get_phrase('active'); ?></option>
-                            <option value="pending" <?php if($selected_status == 'pending') echo 'selected'; ?>><?php echo get_phrase('pending'); ?></option>
+                        <label for="tipe">Produk</label>
+                        <select class="form-control select2" data-toggle="select2" name="tipe" id = 'tipe'>
+                            <option value="all" <?php if($selected_tipe == 'all') echo 'selected'; ?>><?php echo get_phrase('all'); ?></option>
+                            <option value="online_guru" <?php if($selected_tipe == 'online_guru') echo 'selected'; ?>>Online</option>
+                            <option value="online_kelas" <?php if($selected_tipe == 'online_kelas') echo 'selected'; ?>>Online Kelas</option>
+                            <option value="kursus_vokasional" <?php if($selected_tipe == 'kursus_vokasional') echo 'selected'; ?>>Kursus Vokasional</option>
+                            <option value="bimbingan_akademik" <?php if($selected_tipe == 'bimbingan_akademik') echo 'selected'; ?>>Bimbingan Akademik</option>
                         </select>
                     </div>
                 </div>
@@ -155,7 +157,7 @@
                                 <th><?php echo get_phrase('title'); ?></th>
                                 <th><?php echo get_phrase('category'); ?></th>
                                 <th>Keterangan</th>
-                                <th>Tipe</th>
+                                <th>Produk</th>
                                 <th><?php echo get_phrase('enrolled_student'); ?></th>
                                 <th><?php echo get_phrase('status'); ?></th>
                                 <th><?php echo get_phrase('price'); ?></th>
@@ -187,24 +189,26 @@
                                         <span class="badge badge-dark-lighten"><?php echo $category_details['name']; ?></span>
                                     </td>
                                     <td>
-                                        <?php if($course['tipe'] == 'online'){ ?>
+                                        <?php if($course['tipe'] == 'online_guru'){ ?>
                                             <small class="text-muted"><?php echo '<b>'.get_phrase('total_section').'</b>: '.$sections->num_rows(); ?></small><br>
                                             <small class="text-muted"><?php echo '<b>'.get_phrase('total_lesson').'</b>: '.$lessons->num_rows(); ?></small><br>
-                                        <?php }elseif($course['tipe'] == 'workshop'){ ?>
+                                        <?php }elseif($course['tipe'] == 'kursus_vokasional'){ ?>
                                             <small class="text-muted"><b>
                                                 <?php echo 'mulai : '.date_format(date_create($course_details['tanggal']),"j F Y"); ?>
                                             </b></small><br>
                                             <small class="text-muted"><b>
                                                 <?php echo 'selesai : '.date_format(date_create($course_details['tanggal_selesai']),"j F Y"); ?>
                                             </b></small>
-                                        <?php }else{ ?>
+                                        <?php }elseif($course['tipe'] == 'online_kelas'){ ?>
                                              <small class="text-muted"><b>Grup Chat : <?php echo $course['grupchat']; ?></b></small>
                                              <br>
-                                             <small class="text-muted"><b>Live webinar : <?php echo $course['live']; ?></b></small>
+                                             <small class="text-muted"><b>Live online kelas : <?php echo $course['live']; ?></b></small>
+                                        <?php }else{ ?>
+                                             <small class="text-muted"><b>Sesi : <?php echo $course['sesi']; ?></b></small>
                                         <?php } ?>
                                     </td>
                                     <td>
-                                        <small class="text-muted"><?php echo $course['tipe']; ?></small><br>
+                                        <small class="text-muted"><?php echo str_replace("_"," ",$course['tipe']); ?></small><br>
                                     </td>
                                     <td>
                                         <small class="text-muted"><?php echo '<b>'.get_phrase('total_enrolment').'</b>: '.$enroll_history->num_rows(); ?></small>

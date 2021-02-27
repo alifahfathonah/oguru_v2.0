@@ -57,7 +57,7 @@ class User extends CI_Controller {
         }
 
         if ($param1 == "add") {
-            if ($this->input->post('tipe') == 'online') {
+            if ($this->input->post('tipe') == 'online_guru') {
                 $id = $this->crud_model->add_course();
                 redirect(site_url('user/form_kelas/edit/'.$id), 'refresh');
             }else{

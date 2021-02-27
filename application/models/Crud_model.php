@@ -375,25 +375,32 @@ class Crud_model extends CI_Model {
         $data['short_description'] = $this->input->post('short_description');
         $data['description'] = $this->input->post('description');
         $data['outcomes'] = $outcomes;
-        // $data['sub_category_id'] = $this->input->post('sub_category_id');
+        $data['sub_category_id'] = $this->input->post('sub_category_id');
         $data['tipe'] = $this->input->post('tipe');
-        if($data['tipe'] == 'online'){
-            $data['tanggal'] = $this->input->post('tanggal_online');
-        }elseif($data['tipe'] == 'workshop'){
-            $data['tanggal']         = $this->input->post('tanggal_mulai_workshop');
-            $data['tanggal_selesai'] = $this->input->post('tanggal_selesai_workshop');
-            $data['tempat']          = $this->input->post('tempat_workshop');
-            $data['waktu']           = $this->input->post('waktu_workshop');
-            $data['kuota']           = $this->input->post('kuota_workshop');
+        if($data['tipe'] == 'online_guru'){
+            $data['durasi'] = $this->input->post('durasi_online');
+        }elseif($data['tipe'] == 'kursus_vokasional'){
+            $data['tanggal']         = $this->input->post('tanggal_mulai_kursus_vokasional');
+            // $data['tanggal_selesai'] = $this->input->post('tanggal_selesai_kursus_vokasional');
+            $data['tempat']          = $this->input->post('tempat_kursus_vokasional');
+            $data['waktu']           = $this->input->post('waktu_kursus_vokasional');
+            $data['kuota']           = $this->input->post('kuota_kursus_vokasional');
+        }
+        elseif($data['tipe'] == 'bimbingan_akademik'){
+            $data['tanggal']         = $this->input->post('tanggal_bimbingan');
+            $data['tempat']          = $this->input->post('tempat_bimbingan');
+            $data['waktu']           = $this->input->post('waktu_bimbingan');
+            $data['kuota']           = $this->input->post('kuota_bimbingan');
+            $data['sesi']            = $this->input->post('sesi_bimbingan');
         }
         else{
-            $data['tanggal'] = $this->input->post('tanggal');
-            $data['waktu'] = $this->input->post('waktu');
-            $data['kuota'] = $this->input->post('kuota');
-            $data['grupchat'] = $this->input->post('grup_chat');
-            $data['linkgrup'] = $this->input->post('link_chat');
-            $data['live'] = $this->input->post('live');
-            $data['durasi'] = $this->input->post('durasi');
+            $data['tanggal']        = $this->input->post('tanggal');
+            $data['waktu']          = $this->input->post('waktu');
+            $data['kuota']          = $this->input->post('kuota');
+            $data['grupchat']       = $this->input->post('grup_chat');
+            $data['linkgrup']       = $this->input->post('link_chat');
+            $data['live']           = $this->input->post('live');
+            $data['durasi']         = $this->input->post('durasi');
         }
 
         $category_details = $this->get_category_details_by_id($this->input->post('sub_category_id'))->row_array();
@@ -403,11 +410,11 @@ class Crud_model extends CI_Model {
         $data['requirements'] = $requirements;
         $data['price'] = $this->input->post('price');
         $data['is_free_course'] = $this->input->post('is_free_course');
-        if($data['tipe'] == 'webinar'){
-            $data['video_url'] = html_escape($this->input->post('course_overview_url_webinar'));
+        if($data['tipe'] == 'online_kelas'){
+            $data['video_url'] = html_escape($this->input->post('course_overview_url_online_kelas'));
 
-            if ($this->input->post('course_overview_url_webinar') != "") {
-                $data['course_overview_provider'] = html_escape($this->input->post('course_overview_provider_webinar'));
+            if ($this->input->post('course_overview_url_online_kelas') != "") {
+                $data['course_overview_provider'] = html_escape($this->input->post('course_overview_provider_online_kelas'));
             }else {
                 $data['course_overview_provider'] = "";
             }
@@ -447,7 +454,7 @@ class Crud_model extends CI_Model {
         }
 
         $ct = 'course_thumbnail';
-        if ($this->input->post('tipe') == 'webinar') {
+        if ($this->input->post('tipe') == 'online_kelas') {
             $ct = 'course_thumbnailb';
         }
         if ($_FILES[$ct]['name'] != "") {
@@ -455,7 +462,7 @@ class Crud_model extends CI_Model {
         if ($data['status'] == 'approved') {
             $this->session->set_flashdata('flash_message', get_phrase('course_added_successfully'));
         }elseif ($data['status'] == 'pending') {
-            if ($data['tipe'] == 'online') {
+            if ($data['tipe'] == 'online_guru') {
                 $this->session->set_flashdata('flash_message', get_phrase('course_added_successfully').'. silahkan isi kurikulum terlebih dahulu !');
             }else{
                 $this->session->set_flashdata('flash_message', get_phrase('course_added_successfully').'. '.get_phrase('please_wait_untill_Admin_approves_it'));
@@ -487,23 +494,30 @@ class Crud_model extends CI_Model {
         $data['outcomes'] = $outcomes;
         // $data['language'] = $this->input->post('language_made_in');
         $data['tipe'] = $this->input->post('tipe');
-        if($data['tipe'] == 'online'){
-            $data['tanggal'] = $this->input->post('tanggal_online');
-        }elseif($data['tipe'] == 'workshop'){
-            $data['tanggal']         = $this->input->post('tanggal_mulai_workshop');
-            $data['tanggal_selesai'] = $this->input->post('tanggal_selesai_workshop');
-            $data['tempat']          = $this->input->post('tempat_workshop');
-            $data['waktu']           = $this->input->post('waktu_workshop');
-            $data['kuota']           = $this->input->post('kuota_workshop');
+        if($data['tipe'] == 'online_guru'){
+            $data['durasi'] = $this->input->post('durasi_online');
+        }elseif($data['tipe'] == 'kursus_vokasional'){
+            $data['tanggal']         = $this->input->post('tanggal_mulai_kursus_vokasional');
+            $data['tanggal_selesai'] = $this->input->post('tanggal_selesai_kursus_vokasional');
+            $data['tempat']          = $this->input->post('tempat_kursus_vokasional');
+            $data['waktu']           = $this->input->post('waktu_kursus_vokasional');
+            $data['kuota']           = $this->input->post('kuota_kursus_vokasional');
+        }
+        elseif($data['tipe'] == 'bimbingan_akademik'){
+            $data['tanggal']         = $this->input->post('tanggal_bimbingan');
+            $data['tempat']          = $this->input->post('tempat_bimbingan');
+            $data['waktu']           = $this->input->post('waktu_bimbingan');
+            $data['kuota']           = $this->input->post('kuota_bimbingan');
+            $data['sesi']            = $this->input->post('sesi_bimbingan');
         }
         else{
-            $data['tanggal'] = $this->input->post('tanggal');
-            $data['waktu'] = $this->input->post('waktu');
-            $data['kuota'] = $this->input->post('kuota');
-            $data['grupchat'] = $this->input->post('grup_chat');
-            $data['linkgrup'] = $this->input->post('link_chat');
-            $data['live'] = $this->input->post('live');
-            $data['durasi'] = $this->input->post('durasi');
+            $data['tanggal']        = $this->input->post('tanggal');
+            $data['waktu']          = $this->input->post('waktu');
+            $data['kuota']          = $this->input->post('kuota');
+            $data['grupchat']       = $this->input->post('grup_chat');
+            $data['linkgrup']       = $this->input->post('link_chat');
+            $data['live']           = $this->input->post('live');
+            $data['durasi']         = $this->input->post('durasi');
         }
         
         $category_details = $this->get_category_details_by_id($this->input->post('sub_category_id'))->row_array();
@@ -515,11 +529,11 @@ class Crud_model extends CI_Model {
         $data['price'] = $this->input->post('price');
         $data['discount_flag'] = $this->input->post('discount_flag');
         $data['discounted_price'] = $this->input->post('discounted_price');
-        if($data['tipe'] == 'webinar'){
-            $data['video_url'] = html_escape($this->input->post('course_overview_url_webinar'));
+        if($data['tipe'] == 'online_kelas'){
+            $data['video_url'] = html_escape($this->input->post('course_overview_url_online_kelas'));
 
-            if ($this->input->post('course_overview_url_webinar') != "") {
-                $data['course_overview_provider'] = html_escape($this->input->post('course_overview_provider_webinar'));
+            if ($this->input->post('course_overview_url_online_kelas') != "") {
+                $data['course_overview_provider'] = html_escape($this->input->post('course_overview_provider_online_kelas'));
             }else {
                 $data['course_overview_provider'] = "";
             }
@@ -553,7 +567,7 @@ class Crud_model extends CI_Model {
         $this->db->update('course', $data);
 
         $ct = 'course_thumbnail';
-        if ($this->input->post('tipe') == 'webinar') {
+        if ($this->input->post('tipe') == 'online_kelas') {
             $ct = 'course_thumbnailb';
         }
         if ($_FILES[$ct]['name'] != "") {

@@ -137,56 +137,26 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                 <div class="col-md-10">
                                                     <select class="form-control select2" data-toggle="select2" name="tipe" id="tipe" required onchange="show_web(this.value)">
                                                         <optgroup label="Kelas Online">
-                                                            <option value="online" <?php if($course_details['tipe'] == 'online' ){ echo "selected"; } ?>>Online</option>
-                                                            <option value="webinar" <?php if($course_details['tipe'] == 'webinar') { echo "selected"; } ?>>Webinar</option>
+                                                            <option value="online_guru" <?php if($course_details['tipe'] == 'online_guru' ){ echo "selected"; } ?>>Online Guru</option>
+                                                            <option value="online_kelas" <?php if($course_details['tipe'] == 'online_kelas') { echo "selected"; } ?>>Online Kelas</option>
                                                         </optgroup>
                                                         <optgroup label="Kelas Offline">
-                                                            <option value="workshop" <?php if($course_details['tipe'] == 'workshop') { echo "selected"; } ?>>Workshop</option>
+                                                            <option value="kursus_vokasional" <?php if($course_details['tipe'] == 'kursus_vokasional') { echo "selected"; } ?>>Kursus Vokasional</option>
+                                                            <option value="bimbingan_akademik" <?php if($course_details['tipe'] == 'bimbingan_akademik') { echo "selected"; } ?>>Bimbingan Akademik</option>
                                                         </optgroup>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div id="workshop_div">
-                                                <div class="form-group row mb-3">
-                                                    <label class="col-md-2 col-form-label">Tanggal<span class="required">*</span></label>
-                                                    <div class="col-md-4">
-                                                        <input type="date" class="form-control" id="course_date" name = "tanggal_mulai_workshop" value="<?php echo $course_details['tanggal'] ?>">
-                                                    </div>
-                                                    <div class="col-md-2 text-center">
-                                                        <sup>s</sup>/<sub>d</sub>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <input type="date" class="form-control" id="course_date" name = "tanggal_selesai_workshop" value="<?php echo $course_details['tanggal_selesai'] ?>">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label class="col-md-2 col-form-label">Waktu<span class="required">*</span></label>
-                                                    <div class="col-md-10">
-                                                        <input type="time" class="form-control" id="course_time" name = "waktu_workshop" value="<?php echo $course_details['waktu'] ?>">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label class="col-md-2 col-form-label" for="kuota">Kuota<span class="required">*</span></label>
-                                                    <div class="col-md-10">
-                                                        <input type="number" class="form-control" id="course_kuota" name = "kuota_workshop" placeholder="Jumlah kuota" min="1" value="<?php echo $course_details['kuota'] ?>">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-3">
-                                                    <label class="col-md-2 col-form-label">Tempat<span class="required">*</span></label>
-                                                    <div class="col-md-10">
-                                                        <textarea class="form-control" name="tempat_workshop" rows="3"><?php echo $course_details['tempat'] ?></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <!-- online -->
                                             <div id="online_div">
                                                 <div class="form-group row mb-3">
-                                                    <label class="col-md-2 col-form-label" for="kuota">Tanggal<span class="required">*</span></label>
+                                                    <label class="col-md-2 col-form-label" for="durasi">Durasi (jam)<span class="required">*</span></label>
                                                     <div class="col-md-10">
-                                                        <input type="date" class="form-control" id="course_date" name = "tanggal_online" value="<?php echo $course_details['tanggal'] ?>">
+                                                        <input type="number" class="form-control" id="course_durasi" name = "durasi" placeholder="Durasi online guru" value="<?php echo $course_details['durasi_online'] ?>">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="webinar_div">
+                                            <div id="online_kelas_div">
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="kuota">Tanggal<span class="required">*</span></label>
                                                     <div class="col-md-10">
@@ -202,13 +172,81 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="durasi">Durasi (jam)<span class="required">*</span></label>
                                                     <div class="col-md-10">
-                                                        <input type="number" class="form-control" id="course_durasi" name = "durasi" placeholder="Durasi webinar" value="<?php echo $course_details['durasi'] ?>">
+                                                        <input type="number" class="form-control" id="course_durasi" name = "durasi" placeholder="Durasi online_kelas" value="<?php echo $course_details['durasi'] ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row mb-3">
                                                     <label class="col-md-2 col-form-label" for="kuota">Kuota<span class="required">*</span></label>
                                                     <div class="col-md-10">
                                                         <input type="number" class="form-control" id="course_kuota" name = "kuota" placeholder="Jumlah kuota" value="<?php echo $course_details['kuota'] ?>" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- offline -->
+                                            <div id="kursus_vokasional_div">
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-2 col-form-label">Tanggal<span class="required">*</span></label>
+                                                    <div class="col-md-4">
+                                                        <input type="date" class="form-control" id="course_date" name = "tanggal_mulai_kursus_vokasional" value="<?php echo $course_details['tanggal'] ?>">
+                                                    </div>
+                                                    <div class="col-md-2 text-center">
+                                                        <sup>s</sup>/<sub>d</sub>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="date" class="form-control" id="course_date" name = "tanggal_selesai_kursus_vokasional" value="<?php echo $course_details['tanggal_selesai'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-2 col-form-label">Waktu<span class="required">*</span></label>
+                                                    <div class="col-md-10">
+                                                        <input type="time" class="form-control" id="course_time" name = "waktu_kursus_vokasional" value="<?php echo $course_details['waktu'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-2 col-form-label" for="kuota">Kuota<span class="required">*</span></label>
+                                                    <div class="col-md-10">
+                                                        <input type="number" class="form-control" id="course_kuota" name = "kuota_kursus_vokasional" placeholder="Jumlah kuota" min="1" value="<?php echo $course_details['kuota'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-2 col-form-label">Tempat<span class="required">*</span></label>
+                                                    <div class="col-md-10">
+                                                        <textarea class="form-control" name="tempat_kursus_vokasional" rows="3"><?php echo $course_details['tempat'] ?></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="bimbingan_div">
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-2 col-form-label">Tanggal<span class="required">*</span></label>
+                                                    <div class="col-md-10">
+                                                        <input type="date" class="form-control" id="course_date" name = "tanggal_bimbingan" value="<?php echo $course_details['tanggal'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-2 col-form-label">Waktu<span class="required">*</span></label>
+                                                    <div class="col-md-10">
+                                                        <input type="time" class="form-control" id="course_time" name = "waktu_bimbingan" value="<?php echo $course_details['waktu'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-2 col-form-label" for="durasi">Sesi<span class="required">*</span></label>
+                                                    <div class="col-md-10">
+                                                        <input type="number" class="form-control" id="sesi_course" name = "sesi_bimbingan" placeholder="Sesi bimbingan" value="<?php echo $course_details['sesi'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-2 col-form-label" for="kuota">Kuota<span class="required">*</span></label>
+                                                    <div class="col-md-10">
+                                                        <input type="number" class="form-control" id="course_kuota" name = "kuota_bimbingan" placeholder="Jumlah kuota" min="1" value="<?php echo $course_details['kuota'] ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mb-3">
+                                                    <label class="col-md-2 col-form-label">Tempat<span class="required">*</span></label>
+                                                    <div class="col-md-10">
+                                                        <textarea class="form-control" name="tempat_bimbingan" rows="3">
+                                                            <?php echo $course_details['tempat'] ?>
+                                                        </textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -368,6 +406,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                         <div class="col-md-10">
                                             <input type="number" class="form-control" id="price" name = "price" min="0" placeholder="<?php echo get_phrase('enter_course_course_price'); ?>" value="<?php echo $course_details['price']; ?>" >
                                         </div>
+                                        <small class="text-muted">Setiap transaksi akan dipotong sesuai syarat dan ketentuan sebagai biaya admin Oguru</small>
                                     </div>
 
                                     <div class="form-group row mb-3 hidden">
@@ -436,7 +475,7 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
                                     <div class="form-group row mb-3">
                                         <label class="col-md-2 col-form-label" for="course_overview_provider"><?php echo get_phrase('course_overview_provider'); ?></label>
                                         <div class="col-md-10">
-                                            <select class="form-control select2" data-toggle="select2" name="course_overview_provider_webinar" id="course_overview_provider">
+                                            <select class="form-control select2" data-toggle="select2" name="course_overview_provider_online_kelas" id="course_overview_provider">
                                                 <option value="youtube" <?php if ($course_details['course_overview_provider'] == 'youtube')echo 'selected';?>><?php echo get_phrase('youtube'); ?></option>
                                             </select>
                                         </div>
@@ -445,9 +484,9 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
 
                                 <div class="col-xl-8">
                                     <div class="form-group row mb-3">
-                                        <label class="col-md-2 col-form-label" for="course_overview_url_webinar"><?php echo get_phrase('course_overview_url'); ?></label>
+                                        <label class="col-md-2 col-form-label" for="course_overview_url_online_kelas"><?php echo get_phrase('course_overview_url'); ?></label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="course_overview_url_webinar" id="course_overview_url" placeholder="E.g: https://www.youtube.com/watch?v=oBtf8Yglw2w" value="<?php echo $course_details['video_url'] ?>">
+                                            <input type="text" class="form-control" name="course_overview_url_online_kelas" id="course_overview_url" placeholder="E.g: https://www.youtube.com/watch?v=oBtf8Yglw2w" value="<?php echo $course_details['video_url'] ?>">
                                         </div>
                                     </div>
                                 </div> <!-- end col -->
@@ -478,13 +517,13 @@ $course_details = $this->crud_model->get_course_by_id($course_id)->row_array();
 
                                 <div class="col-xl-8">
                                     <div class="form-group row mb-3">
-                                        <label class="col-md-2 col-form-label" for="live">Live Webinar</label>
+                                        <label class="col-md-2 col-form-label" for="live">Live online_kelas</label>
                                         <div class="col-md-10">
                                             <select class="form-control select2" data-toggle="select2" name="live" id="live">
                                                 <option value="Zoom" <?php if($course_details['live'] == 'zoom') { echo "selected"; } ?>>Zoom</option>
                                                 <option value="gmeet" <?php if($course_details['live'] == 'gmeet') { echo "selected"; } ?>>Gmeet</option>
                                             </select>
-                                            <span class="text-muted">Link live webinar dibagikan dalam grup chat.</span>
+                                            <span class="text-muted">Link live online_kelas dibagikan dalam grup chat.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -596,22 +635,31 @@ jQuery(document).ready(function() {
     jQuery('#blank_requirement_field').hide();
     calculateDiscountPercentage($('#discounted_price').val());
     if (tipe == 'online') { 
-        $('#webinar_div').hide();
-        $('#workshop_div').hide();
-    }else if(tipe == 'workshop'){
+        $('#online_kelas_div').hide();
+        $('#kursus_vokasional_div').hide();
+        $('#bimbingan_div').hide();
+    }else if(tipe == 'kursus_vokasional'){
         $('#online_div').hide();
-        $('#webinar_div').hide();
-    }else{
+        $('#online_kelas_div').hide();
+        $('#bimbingan_div').hide();
+    }
+    else if(tipe == 'bimbingan_akademik'){
         $('#online_div').hide();
-        $('#workshop_div').hide();
+        $('#online_kelas_div').hide();
+        $('#kursus_vokasional_div').hide();
+    }
+    else{
+        $('#online_div').hide();
+        $('#kursus_vokasional_div').hide();
+        $('#bimbingan_div').hide();
     }
     // console.log('tipe = '+tipe);
     $('#media_a').hide();
     $('#media_b').hide();
-    if(tipe == 'online' || tipe == 'workshop'){
-        $('#media_a').show();
-    }else{
+    if(tipe == 'online_kelas'){
         $('#media_b').show();
+    }else{
+        $('#media_a').show();
     }
 });
 function appendOutcome() {
@@ -685,31 +733,41 @@ function calculateDiscountPercentage(discounted_price) {
 }
 
 function show_web(param) {
-    if (param == "online") {
+    if (param == "online_guru") {
         // $('#level').hide();
         $('#media_a').show();
         $('#media_b').hide();
-        $('#webinar_div').hide();
+        $('#online_kelas_div').hide();
         $('#online_div').show();
-        $('#workshop_div').hide();
+        $('#kursus_vokasional_div').hide();
+        $('#bimbingan_div').hide();
         // $('#online').show();
     // }else if (lesson_type === "other") {
     //     $('#video').hide();
     //     $('#other').show();
-    }else if(param == "workshop"){
+    }else if(param == "kursus_vokasional"){
         $('#media_a').show();
         $('#media_b').hide();
-        $('#webinar_div').hide();
+        $('#online_kelas_div').hide();
         $('#online_div').hide();
-        $('#workshop_div').show();
-    }else {
-        // $('#level').show();
+        $('#kursus_vokasional_div').show();
+        $('#bimbingan_div').hide();
+    }
+    else if(param == "bimbingan_akademik"){
+        $('#media_a').show();
+        $('#media_b').hide();
+        $('#online_kelas_div').hide();
+        $('#online_div').hide();
+        $('#kursus_vokasional_div').hide();
+        $('#bimbingan_div').show();
+    }
+    else {
         $('#media_a').hide();
-        $('#webinar_div').show();
-        $('#online_div').hide();
         $('#media_b').show();
-        $('#workshop_div').hide();
-        // $('#other').hide();
+        $('#online_kelas_div').show();
+        $('#online_div').hide();
+        $('#kursus_vokasional_div').hide();
+        $('#bimbingan_div').hide();
     }
 }
 

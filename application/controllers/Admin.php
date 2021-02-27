@@ -476,12 +476,12 @@ public function mitra($param1 = "", $param2 = "") {
     }
 
     if ($param1 == "add") {
-      if ($this->input->post('tipe') == 'online') {
+      if ($this->input->post('tipe') == 'online_guru') {
           $id = $this->crud_model->add_course();
           redirect(site_url('admin/form_kelas/edit/'.$id), 'refresh');
       }else{
           $this->crud_model->add_course();
-          redirect(site_url('admin/kelas'), 'refresh');
+          redirect(site_url('admin/courses'), 'refresh');
       }
     }
     elseif ($param1 == "edit") {
